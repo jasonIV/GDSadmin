@@ -40,6 +40,7 @@ input:focus {
     font-size: 1.5rem;
     color: #ED2424;
 }
+
 .logo img {
     width: 300px;
 }
@@ -94,10 +95,10 @@ input:focus {
     color: #fff;
 }
 .cl-white {
-    color: #fff;
+    color: white;
 }
 .bk-btn {
-    float: left;
+    display: inline;
     padding-left: 2%;
 }
 /* comm css */
@@ -151,6 +152,8 @@ input:focus {
     width: 96%;
 }
 .history .detail {
+    display: block;
+    overflow: auto;
     margin-bottom: 15px;
     padding: 5px 10px;
     border: 1px solid #ddd;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import gdsicon from './../img/gdsicon.png';
+import gdsicon from '../../img/gdsicon.png';
 
 class Login extends Component {
     render() {
@@ -9,18 +9,18 @@ class Login extends Component {
                 <div className="container">
                     <div className="login">
                         <div className="title">
-                            <p className="text-center">GDS Agent App</p>
+                            <p className="text-center">GDS Admin App</p>
                         </div>
                         <div className="content">
                             <div className="logo">
-                                <img src={gdsicon} alt="GDS"/>
+                                <img src={"https://i.imgur.com/GySeIFO.png"} alt="GDS"/>
                             </div>
                             <button className="btn-com">
                                 <Link to="/signin" className="cl-white" value="dashboard">Login</Link>
                             </button>
-                            <button className="btn-com">
+          {/*<button className="btn-com">
                                 <Link to="/signup" className="cl-white" value="dashboard">Signup</Link>
-                            </button>
+                            </button>*/}
                         </div>
                     </div>
                 </div>
