@@ -13,7 +13,6 @@ function History(props){
   function handleRollback(e,id) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(id);
     props.deleteTransaction(id);
     props.fetchTransactions();
   }
@@ -29,7 +28,7 @@ function History(props){
         <div className="dashboard main-content">
             <div className="title">
                 <p className="text-center">
-                    <Link to="/dashboard" className="cl-white bk-btn" value="dashboard"><TiArrowBackOutline/></Link>GDS Agent App</p>
+                    <Link to="/dashboard" className="cl-white bk-btn" value="dashboard"><TiArrowBackOutline/></Link>GDS Admin App</p>
             </div>
             { tloading? "Loading Please Wait..." : (
               <div className="history inn-content">
