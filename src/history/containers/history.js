@@ -9,6 +9,8 @@ import { fetchTransactions, deleteTransaction } from "../actions/historyActions.
 
 function History(props){
 
+  const { transactions, tloading, dloading, error } = props
+
   function handleRollback(e,id) {
     e.preventDefault();
     e.stopPropagation();
@@ -20,8 +22,6 @@ function History(props){
     props.fetchTransactions();
   },[])
   
-  const { transactions, tloading, dloading, error } = props
-
   return(
     <div className="wrap">
         <div className="dashboard main-content">
@@ -33,17 +33,32 @@ function History(props){
             { tloading? "Loading Please Wait..." : (
               <div className="history inn-content">
                 { transactions.length === 0 ? "Loading ..." :
-                    transactions.map(item => (
-                      <HistoryItem 
-                      id={item.id}
-                      name={item.name}
-                      phoneNo={item.phoneNo}
-                      amount={item.amount}
-                      updatedBalance={item.updatedBalance}
-                      time={item.time} 
-                      Rollback={handleRollback}
-                      />
-                    ))}
+                    transactions.map(item => {
+                      if(item === transactions[0]){
+                        return(
+                          <HistoryItem 
+                          id={item.id}
+                          name={item.name}
+                          phoneNo={item.phoneNo}
+                          amount={item.amount}
+                          updatedBalance={item.updatedBalance}
+                          time={item.time} 
+                          enabled={true}
+                          Rollback={handleRollback}
+                          />)}
+                      else{
+                        return(
+                          <HistoryItem 
+                          id={item.id}
+                          name={item.name}
+                          phoneNo={item.phoneNo}
+                          amount={item.amount}
+                          updatedBalance={item.updatedBalance}
+                          time={item.time} 
+                          enabled={false}
+                          Rollback={handleRollback}
+                          />)}
+                    })}
               </div>
             )}
         </div>
@@ -58,22 +73,22 @@ const isEmpty = obj => {
   return false;
 }
 
-const transactionsStore = store => store.hist.transactions
+// const transactionsStore = store => store.hist.transactions
 
-const transactionsSelector = createSelector([transactionsStore], items => {
-  return items.map(item => ({
-      id: item.id,
-      name: item.name,
-      phoneNo: item.phoneNo,
-      amount: item.amount,
-      updatedBalance: item.updatedBalance,
-      time: new Date(item.time._seconds * 1000)
-  }))
-})
+// const transactionsSelector = createSelector([transactionsStore], items => {
+//   return items.map(item => ({
+//       id: item.id,
+//       name: item.name,
+//       phoneNo: item.phoneNo,
+//       amount: item.amount,
+//       updatedBalance: item.updatedBalance,
+//       time: new Date(item.time._seconds * 1000)
+//   }))
+// })
 
 const mapStateToProps = store => {
   return {
-    transactions: transactionsSelector(store),
+    transactions: store.hist.transactions,
     loading: store.hist.tloading,
     error: store.hist.error,
     dloading: store.hist.dloading,

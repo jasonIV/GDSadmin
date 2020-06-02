@@ -31,6 +31,7 @@ export const deleteTransaction = params => {
     .then(res => {
       dispatch({type: DELETE_TRANSACTION_SUCCESS})
       alert("Rolled back successfully.")
+      window.location.replace("#/dashboard")
     })
     .catch(err => {
       dispatch({type: DELETE_TRANSACTION_ERROR, payload: err})
