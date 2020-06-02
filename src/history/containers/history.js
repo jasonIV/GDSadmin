@@ -5,7 +5,6 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import HistoryItem from "./historyitem.js"
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import { isEmpty } from "lodash";
 import { fetchTransactions, deleteTransaction } from "../actions/historyActions.js"
 
 function History(props){
@@ -30,6 +29,7 @@ function History(props){
                 <p className="text-center">
                     <Link to="/dashboard" className="cl-white bk-btn" value="dashboard"><TiArrowBackOutline/></Link>GDS Admin App</p>
             </div>
+            { isEmpty(error) ? null : <div style={{background: "#ffcccc", color: "red", margin: "10px 20px", padding: "20px",textAlign: "center"}}>Balance already used up, not enough to roll back.</div>}
             { tloading? "Loading Please Wait..." : (
               <div className="history inn-content">
                 { transactions.length === 0 ? "Loading ..." :
@@ -49,6 +49,13 @@ function History(props){
         </div>
     </div>
   )
+}
+
+const isEmpty = obj => {
+  if(Object.keys(obj).length === 0){
+    return true;
+  }
+  return false;
 }
 
 const transactionsStore = store => store.hist.transactions

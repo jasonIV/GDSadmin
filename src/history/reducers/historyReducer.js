@@ -27,6 +27,7 @@ export default function (state=initialState, actions){
         ...state,
         tloading: false,
         transactions: actions.payload,
+        error: {}
       }
     case TRANSACTION_ERROR:
       return {
@@ -43,6 +44,7 @@ export default function (state=initialState, actions){
         ...state,
         dloading: false,
         dsuccess: true,
+        error: {}
       }
     case DELETE_TRANSACTION_ERROR:
       return{
