@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
-import { AiFillPlusCircle } from 'react-icons/ai';
+
 class PartnerApps extends Component{
     render() {
         return(

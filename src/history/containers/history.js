@@ -1,20 +1,18 @@
 import React,{ useEffect } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
-import { AiFillPlusCircle } from 'react-icons/ai';
 import HistoryItem from "./historyitem.js"
 import { connect } from "react-redux";
-import { createSelector } from "reselect";
 import { fetchTransactions, deleteTransaction } from "../actions/historyActions.js"
 
 function History(props){
 
-  const { transactions, tloading, dloading, error } = props
+  const { transactions, tloading,  error } = props
 
-  function handleRollback(e,id) {
+  function handleRollback(e,date) {
     e.preventDefault();
     e.stopPropagation();
-    props.deleteTransaction(id);
+    props.deleteTransaction(date);
     props.fetchTransactions();
   }
   
@@ -37,24 +35,22 @@ function History(props){
                       if(item === transactions[0]){
                         return(
                           <HistoryItem 
-                          id={item.id}
-                          name={item.name}
-                          phoneNo={item.phoneNo}
-                          amount={item.amount}
-                          updatedBalance={item.updatedBalance}
-                          time={item.time} 
+                          key={item.date}
+                          name={item.username}
+                          phoneNo={item.useragent}
+                          amount={item.topup}
+                          time={item.date} 
                           enabled={true}
                           Rollback={handleRollback}
                           />)}
                       else{
                         return(
                           <HistoryItem 
-                          id={item.id}
-                          name={item.name}
-                          phoneNo={item.phoneNo}
-                          amount={item.amount}
-                          updatedBalance={item.updatedBalance}
-                          time={item.time} 
+                          key={item.date}
+                          name={item.username}
+                          phoneNo={item.useragent}
+                          amount={item.topup}
+                          time={item.date} 
                           enabled={false}
                           Rollback={handleRollback}
                           />)}

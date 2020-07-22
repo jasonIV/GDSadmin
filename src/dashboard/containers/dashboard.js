@@ -1,7 +1,6 @@
 import React,{ useRef, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
-import { AiFillPlusCircle } from 'react-icons/ai';
 import { IoMdListBox } from 'react-icons/io';
 import { connect } from "react-redux"
 import { signOut } from "../../auth/actions/authActions.js"
@@ -9,9 +8,9 @@ import { updateBalance } from "../actions/dashboardActions.js"
 
 function Dashboard(props){
   const phoneNo = useRef(null)
-  const gds_balance = useRef(null)
+  const topup = useRef(null)
 
-  const { auth, success, loading, error } = props
+  const { auth, loading, error } = props
 
   const isExist = obj => {
     return Object.keys(obj).length
@@ -22,7 +21,7 @@ function Dashboard(props){
   }
 
   const handleUpdate = (event) => {
-    props.updateBalance(phoneNo.current.value, gds_balance.current.value)
+    props.updateBalance(phoneNo.current.value, topup.current.value)
   }
 
   useEffect(() => {
@@ -47,7 +46,7 @@ function Dashboard(props){
                       </ul>*/}
                     <div className="form">
                       <input type="number" name="" placeholder="Phone Number" ref={phoneNo} required={true} />
-                      <input type="number" name="" placeholder="Balance Amount" ref={gds_balance} required={true} />
+                      <input type="number" name="" placeholder="Balance Amount" ref={topup} required={true} />
                     { isExist(error) ? 
                       <div style={{textAlign: "center", color: "red"}}>
                         {error.message}

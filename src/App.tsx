@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 /* import Login from './auth/containers/login.js'; */
 import Signin from './auth/containers/signin.js';
-import Signup from './auth/containers/signup.js';
 import Dashboard from './dashboard/containers/dashboard.js';
 import PartnerApps from './dashboard/containers/partnerApps.js';
 import History from './history/containers/history.js';

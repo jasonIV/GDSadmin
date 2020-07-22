@@ -1,7 +1,4 @@
 import React,{ useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import icon from '../../img/icon.png';
-import Navbar from '../../components/navbar.js'
 import { connect } from "react-redux"
 import { signIn } from "../actions/authActions.js"
 
