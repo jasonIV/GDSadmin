@@ -14,12 +14,6 @@ function Signin(props){
     props.signIn(email.current.value, password.current.value)
   }
 
-  const checkUser = () => {
-    Auth.currentAuthenticatedUser()
-    .then(user => console.log(user))
-    .catch(err => console.log(err))
-  }
-  
   useEffect(() => {
     if(auth){
       props.history.push("/dashboard")

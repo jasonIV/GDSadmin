@@ -27,6 +27,8 @@ export default function(state = initialState, action) {
    case LOGIN_ERROR:
      return {
        ...state,
+       auth: null,
+       loading: false,
        error: action.err,
      }
    case LOGOUT_SUCCESS:
