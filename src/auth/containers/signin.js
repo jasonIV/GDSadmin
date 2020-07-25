@@ -49,7 +49,7 @@ function Signin(props){
                   </div>
                 }
                 <button className="btn-com btn-m-t" onClick={handleSignIn} >
-                  Sign In
+                  {loading? <p>Loading...</p> : <p>Sign In</p>}
                 </button>
               </div>
             </div>
