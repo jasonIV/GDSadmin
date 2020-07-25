@@ -69,19 +69,6 @@ const isEmpty = obj => {
   return false;
 }
 
-// const transactionsStore = store => store.hist.transactions
-
-// const transactionsSelector = createSelector([transactionsStore], items => {
-//   return items.map(item => ({
-//       id: item.id,
-//       name: item.name,
-//       phoneNo: item.phoneNo,
-//       amount: item.amount,
-//       updatedBalance: item.updatedBalance,
-//       time: new Date(item.time._seconds * 1000)
-//   }))
-// })
-
 const mapStateToProps = store => {
   return {
     transactions: store.hist.transactions,

@@ -1,6 +1,7 @@
 import React,{ useRef, useEffect } from 'react';
 import { connect } from "react-redux"
 import { signIn } from "../actions/authActions.js"
+import { Auth } from "aws-amplify";
 
 function Signin(props){
 
@@ -12,13 +13,15 @@ function Signin(props){
   const handleSignIn = (event) => {
     props.signIn(email.current.value, password.current.value)
   }
-  
-  const isExist = obj => {
-    return Object.keys(obj).length
-  }
 
+  const checkUser = () => {
+    Auth.currentAuthenticatedUser()
+    .then(user => console.log(user))
+    .catch(err => console.log(err))
+  }
+  
   useEffect(() => {
-    if(isExist(auth)){
+    if(auth){
       props.history.push("/dashboard")
     }
   },[auth])
@@ -40,13 +43,13 @@ function Signin(props){
               <div className="form">
                 <input type="text" name="" placeholder="Email" ref={email} required={true} />
                 <input type="password" name="" placeholder="Password" ref={password} required={true} />
-                { isExist(error) ? 
+                { error &&
                   <div style={{color: "red"}}>
                     {error.message}
                   </div>
-                  : null }
+                }
                 <button className="btn-com btn-m-t" onClick={handleSignIn} >
-                  {loading? <p>Loading</p> : <p>Sign In</p>}
+                  Sign In
                 </button>
               </div>
             </div>
@@ -64,5 +67,4 @@ const mapStateToProps = store => {
   }
 }
 
-
-export default connect( mapStateToProps, { signIn } )(Signin)
+export default connect( mapStateToProps,{ signIn } )(Signin)
