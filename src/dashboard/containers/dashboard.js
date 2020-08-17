@@ -36,7 +36,7 @@ function Dashboard(props){
                 </div>
                   <div className="balance inn-content">
                     <div className="form">
-                      <input type="number" name="" placeholder="Phone Number" ref={phoneNo} required={true} />
+                      <input type="string" name="" placeholder="Phone Number" ref={phoneNo} required={true} />
                       <input type="number" name="" placeholder="Balance Amount" ref={topup} required={true} />
                     { error &&
                       <div style={{textAlign: "center", color: "red"}}>

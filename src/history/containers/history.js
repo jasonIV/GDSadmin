@@ -1,4 +1,4 @@
-import React,{ useEffect } from 'react';
+import React,{ useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
 import HistoryItem from "./historyitem.js"
@@ -8,6 +8,20 @@ import { fetchTransactions, deleteTransaction } from "../actions/historyActions.
 function History(props){
 
   const { transactions, tloading,  error } = props
+  const [ sorted, setSorted ] = useState([]);
+
+  useEffect(() => {
+    props.fetchTransactions();
+  },[])
+  
+
+  useEffect(() => {
+    if(transactions.length > 0){
+    console.log("sorting..")
+    setSorted(transactions.sort(function(a,b){
+      return a.date - b.date
+    }))
+  }}, [transactions])
 
   function handleRollback(e,date) {
     e.preventDefault();
@@ -15,10 +29,6 @@ function History(props){
     props.deleteTransaction(date);
     props.fetchTransactions();
   }
-  
-  useEffect(() => {
-    props.fetchTransactions();
-  },[])
   
   return(
     <div className="wrap">
@@ -30,9 +40,9 @@ function History(props){
             { isEmpty(error) ? null : <div style={{background: "#ffcccc", color: "red", margin: "10px 20px", padding: "20px",textAlign: "center"}}>Balance already used up, not enough to roll back.</div>}
             { tloading? "Loading Please Wait..." : (
               <div className="history inn-content">
-                { transactions.length === 0 ? "Loading ..." :
-                    transactions.map(item => {
-                      if(item === transactions[0]){
+                { sorted.length === 0 ? "Loading ..." :
+                    sorted.slice(0,).reverse().map(item => {
+                      if(item === sorted[sorted.length - 1]){
                         return(
                           <HistoryItem 
                           key={item.date}
