@@ -1,4 +1,4 @@
-import React,{ useEffect } from 'react';
+import React,{ useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -9,7 +9,20 @@ import { fetchTransactions, deleteTransaction } from "../actions/historyActions.
 
 function History(props){
 
-  const { transactions, tloading, dloading, error } = props
+  const { transactions, tloading, dloading, error } = props;
+  const [ sorted, setSorted ] = useState([]);
+
+  useEffect(() => {
+    props.fetchTransactions();
+  },[])
+
+  useEffect(() => {
+    if(transactions.length > 0){
+      setSorted(transactions.sort(function(a,b){
+        return a.date - b.date
+      }))
+    }
+  }, [transactions])
 
   function handleRollback(e,id) {
     e.preventDefault();
@@ -18,10 +31,6 @@ function History(props){
     props.fetchTransactions();
   }
   
-  useEffect(() => {
-    props.fetchTransactions();
-  },[])
-  
   return(
     <div className="wrap">
         <div className="dashboard main-content">
@@ -29,32 +38,32 @@ function History(props){
                 <p className="text-center">
                     <Link to="/dashboard" className="cl-white bk-btn" value="dashboard"><TiArrowBackOutline/></Link>GDS Admin App</p>
             </div>
-            { isEmpty(error) ? null : <div style={{background: "#ffcccc", color: "red", margin: "10px 20px", padding: "20px",textAlign: "center"}}>Balance already used up, not enough to roll back.</div>}
+            { isEmpty(error) ? null : <div style={{background: "#ffcccc", color: "red", margin: "10px 20px", padding: "20px",textAlign: "center"}}>Something went wrong. Please try again later.</div>}
             { tloading? "Loading Please Wait..." : (
               <div className="history inn-content">
-                { transactions.length === 0 ? "Loading ..." :
-                    transactions.map(item => {
-                      if(item === transactions[0]){
+                { sorted.length === 0 ? "No record yet." :
+                    sorted.slice(0,).reverse().map(item => {
+                      if(item === sorted[sorted.length - 1]){
                         return(
                           <HistoryItem 
+                          key={item.id}
                           id={item.id}
-                          name={item.name}
-                          phoneNo={item.phoneNo}
-                          amount={item.amount}
-                          updatedBalance={item.updatedBalance}
-                          time={item.time} 
+                          name={item.username}
+                          phoneNo={item.useragent}
+                          amount={item.topup}
+                          time={item.date} 
                           enabled={true}
                           Rollback={handleRollback}
                           />)}
                       else{
                         return(
                           <HistoryItem 
+                          key={item.id}
                           id={item.id}
-                          name={item.name}
-                          phoneNo={item.phoneNo}
-                          amount={item.amount}
-                          updatedBalance={item.updatedBalance}
-                          time={item.time} 
+                          name={item.username}
+                          phoneNo={item.useragent}
+                          amount={item.topup}
+                          time={item.date} 
                           enabled={false}
                           Rollback={handleRollback}
                           />)}

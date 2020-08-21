@@ -16,7 +16,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         auth: action.payload,
-        loading: false
+        loading: false,
+        error: null,
       }
     case LOGIN_LOADING:
       return{
@@ -26,21 +27,22 @@ export default function(state = initialState, action) {
    case LOGIN_ERROR:
      return {
        ...state,
-       error: action.payload,
+       auth: null,
+       error: action.err,
        loading: false
      }
    case LOGOUT_SUCCESS:
       return{
         ...state,
-        auth: {},
+        auth: null,
         loading: false,
-        error: {}
+        error: null,
       }
    case LOGOUT_ERROR:
       return{
         ...state,
         loading: false,
-        error: action.payload
+        error: action.err
       }
    default:
       return state

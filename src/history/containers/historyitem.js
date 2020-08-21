@@ -7,7 +7,7 @@ function HistoryItem(props){
         <p className="name">{props.name}</p>
         <p className="acc">{props.phoneNo}</p>
         <p className="amount">MMK - {props.amount}</p>
-        <p className="time">{new Date(props.time._seconds*1000).toDateString()}</p>
+        <p className="time">{new Date(props.time).toDateString()}</p>
         {props.enabled?
           <button 
             className="btn-com" 

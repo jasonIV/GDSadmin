@@ -8,7 +8,7 @@ import {
 const initialState = {
   loading: false,
   success: false,
-  error: {}
+  error: null
 }
 
 //reducer
@@ -19,14 +19,14 @@ export default function(state = initialState, action){
         ...state,
         loading: false,
         success: true,
-        error: {},
+        error: null
       }
    case UPDATE_BALANCE_LOADING:
       return{
         ...state,
         success: false,
         loading: true,
-        error: {},
+        error: null
       }
    case UPDATE_BALANCE_ERROR:
       return{

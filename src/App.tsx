@@ -11,11 +11,6 @@ import PartnerApps from './dashboard/containers/partnerApps.js';
 import History from './history/containers/history.js';
 import { firebaseConfig } from './config/firebaseconfig.js'
 
-var firebase = require("firebase/app")
-
-//Initialize firebase
-firebase.initializeApp(firebaseConfig)
-
 class App extends Component {
     render(){
         return (
