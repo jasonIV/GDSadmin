@@ -14,6 +14,12 @@
         "categories": {
             "auth": {
                 "gdsadmin4e2a3e68": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3mgr8us1c7xtb",
+                    "type": "manual"
+                }
             }
         }
     }

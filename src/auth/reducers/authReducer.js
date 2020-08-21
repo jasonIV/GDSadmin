@@ -5,9 +5,9 @@ import { LOGIN_SUCCESS,
   LOGOUT_ERROR } from "../actions/authActions.js"
 
 const initialState = {
-  auth: {},
+  auth: null,
   loading: false,
-  error: {},
+  error: null
 }
 
 export default function(state = initialState, action) {
