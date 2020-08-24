@@ -1,5 +1,5 @@
 import axios from "axios"; 
-import {firebaseUrl} from "../../config/url.js";
+import {awsUrl} from "../../config/url.js";
 
 //action types
 export const TRANSACTION_LOADING = "TRANSACTION_LOADING";
@@ -13,20 +13,20 @@ export const DELETE_TRANSACTION_ERROR = "DELETE_TRANSACTION_ERROR";
 export const fetchTransactions = () => {
   return(dispatch) => {
     dispatch({type: TRANSACTION_LOADING})
-    axios.get(`${firebaseUrl}balance/read`)
+    axios.get(`${awsUrl}balance/scan`)
       .then(res => {
-        dispatch({type: TRANSACTION_SUCCESS, payload: res.data})
+        dispatch({type: TRANSACTION_SUCCESS, payload: res.data.body.Items})
       })
       .catch(err => {
         dispatch({type: TRANSACTION_ERROR, payload: err})
       })
 }}
 
-export const deleteTransaction = params => {
+export const deleteTransaction = (date) => {
   return(dispatch) => {
     dispatch({type: DELETE_TRANSACTION_LOADING}) 
-    axios.put(`${firebaseUrl}balance/rollback`,{
-      id: params
+    axios.put(`${awsUrl}balance/rollback`,{
+      date
     })
     .then(res => {
       dispatch({type: DELETE_TRANSACTION_SUCCESS})

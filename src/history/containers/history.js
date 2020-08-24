@@ -1,26 +1,34 @@
-import React,{ useEffect } from 'react';
+import React,{ useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
-import { AiFillPlusCircle } from 'react-icons/ai';
 import HistoryItem from "./historyitem.js"
 import { connect } from "react-redux";
-import { createSelector } from "reselect";
 import { fetchTransactions, deleteTransaction } from "../actions/historyActions.js"
 
 function History(props){
 
-  const { transactions, tloading, dloading, error } = props
+  const { transactions, tloading,  error } = props
+  const [ sorted, setSorted ] = useState([]);
 
-  function handleRollback(e,id) {
-    e.preventDefault();
-    e.stopPropagation();
-    props.deleteTransaction(id);
-    props.fetchTransactions();
-  }
-  
   useEffect(() => {
     props.fetchTransactions();
   },[])
+  
+
+  useEffect(() => {
+    if(transactions.length > 0){
+    console.log("sorting..")
+    setSorted(transactions.sort(function(a,b){
+      return a.date - b.date
+    }))
+  }}, [transactions])
+
+  function handleRollback(e,date) {
+    e.preventDefault();
+    e.stopPropagation();
+    props.deleteTransaction(date);
+    props.fetchTransactions();
+  }
   
   return(
     <div className="wrap">
@@ -32,29 +40,27 @@ function History(props){
             { isEmpty(error) ? null : <div style={{background: "#ffcccc", color: "red", margin: "10px 20px", padding: "20px",textAlign: "center"}}>Balance already used up, not enough to roll back.</div>}
             { tloading? "Loading Please Wait..." : (
               <div className="history inn-content">
-                { transactions.length === 0 ? "Loading ..." :
-                    transactions.map(item => {
-                      if(item === transactions[0]){
+                { sorted.length === 0 ? "Loading ..." :
+                    sorted.slice(0,).reverse().map(item => {
+                      if(item === sorted[sorted.length - 1]){
                         return(
                           <HistoryItem 
-                          id={item.id}
-                          name={item.name}
-                          phoneNo={item.phoneNo}
-                          amount={item.amount}
-                          updatedBalance={item.updatedBalance}
-                          time={item.time} 
+                          key={item.date}
+                          name={item.username}
+                          phoneNo={item.useragent}
+                          amount={item.topup}
+                          time={item.date} 
                           enabled={true}
                           Rollback={handleRollback}
                           />)}
                       else{
                         return(
                           <HistoryItem 
-                          id={item.id}
-                          name={item.name}
-                          phoneNo={item.phoneNo}
-                          amount={item.amount}
-                          updatedBalance={item.updatedBalance}
-                          time={item.time} 
+                          key={item.date}
+                          name={item.username}
+                          phoneNo={item.useragent}
+                          amount={item.topup}
+                          time={item.date} 
                           enabled={false}
                           Rollback={handleRollback}
                           />)}
@@ -72,19 +78,6 @@ const isEmpty = obj => {
   }
   return false;
 }
-
-// const transactionsStore = store => store.hist.transactions
-
-// const transactionsSelector = createSelector([transactionsStore], items => {
-//   return items.map(item => ({
-//       id: item.id,
-//       name: item.name,
-//       phoneNo: item.phoneNo,
-//       amount: item.amount,
-//       updatedBalance: item.updatedBalance,
-//       time: new Date(item.time._seconds * 1000)
-//   }))
-// })
 
 const mapStateToProps = store => {
   return {

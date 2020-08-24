@@ -5,9 +5,9 @@ import { LOGIN_SUCCESS,
   LOGOUT_ERROR } from "../actions/authActions.js"
 
 const initialState = {
-  auth: {},
+  auth: null,
   loading: false,
-  error: {},
+  error: null,
 }
 
 export default function(state = initialState, action) {
@@ -16,31 +16,33 @@ export default function(state = initialState, action) {
       return {
         ...state,
         auth: action.payload,
-        loading: false
+        loading: false,
+        err: null
       }
     case LOGIN_LOADING:
       return{
         ...state,
-        loading: true
+        loading: true,
       }
    case LOGIN_ERROR:
      return {
        ...state,
-       error: action.payload,
-       loading: false
+       auth: null,
+       loading: false,
+       error: action.err,
      }
    case LOGOUT_SUCCESS:
       return{
         ...state,
-        auth: {},
+        auth: null,
         loading: false,
-        error: {}
+        error: null
       }
    case LOGOUT_ERROR:
       return{
         ...state,
         loading: false,
-        error: action.payload
+        error: action.err
       }
    default:
       return state

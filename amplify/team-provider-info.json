@@ -1,0 +1,20 @@
+{
+    "local": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-gdsadminaws-local-194952-authRole",
+            "UnauthRoleArn": "arn:aws:iam::031511756749:role/amplify-gdsadminaws-local-194952-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::031511756749:role/amplify-gdsadminaws-local-194952-authRole",
+            "Region": "ap-southeast-1",
+            "DeploymentBucketName": "amplify-gdsadminaws-local-194952-deployment",
+            "UnauthRoleName": "amplify-gdsadminaws-local-194952-unauthRole",
+            "StackName": "amplify-gdsadminaws-local-194952",
+            "StackId": "arn:aws:cloudformation:ap-southeast-1:031511756749:stack/amplify-gdsadminaws-local-194952/881f51a0-ce79-11ea-a1b0-0a9a2b745e0a",
+            "AmplifyAppId": "d386k4bn9owjae"
+        },
+        "categories": {
+            "auth": {
+                "gdsadminawsa0958b5d": {}
+            }
+        }
+    }
+}

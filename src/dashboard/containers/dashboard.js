@@ -1,7 +1,6 @@
 import React,{ useRef, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import { TiArrowBackOutline } from 'react-icons/ti';
-import { AiFillPlusCircle } from 'react-icons/ai';
 import { IoMdListBox } from 'react-icons/io';
 import { connect } from "react-redux"
 import { signOut } from "../../auth/actions/authActions.js"
@@ -9,24 +8,20 @@ import { updateBalance } from "../actions/dashboardActions.js"
 
 function Dashboard(props){
   const phoneNo = useRef(null)
-  const gds_balance = useRef(null)
+  const topup = useRef(null)
 
-  const { auth, success, loading, error } = props
+  const { auth, loading, error } = props
 
-  const isExist = obj => {
-    return Object.keys(obj).length
-  }
-  
   const handleSignOut = (event) => {
     props.signOut()
   }
 
   const handleUpdate = (event) => {
-    props.updateBalance(phoneNo.current.value, gds_balance.current.value)
+    props.updateBalance(phoneNo.current.value, topup.current.value)
   }
 
   useEffect(() => {
-    if(!isExist(auth)){
+    if(auth === null){
       props.history.push("/signin")
     }
   },[auth])
@@ -40,25 +35,19 @@ function Dashboard(props){
                   </p>
                 </div>
                   <div className="balance inn-content">
-                    {/*<ul className="list">
-                          <li>
-                              <p>Balance  <i className="float-right"> 30000 ks</i></p>
-                          </li>
-                      </ul>*/}
                     <div className="form">
-                      <input type="number" name="" placeholder="Phone Number" ref={phoneNo} required={true} />
-                      <input type="number" name="" placeholder="Balance Amount" ref={gds_balance} required={true} />
-                    { isExist(error) ? 
+                      <input type="string" name="" placeholder="Phone Number" ref={phoneNo} required={true} />
+                      <input type="number" name="" placeholder="Balance Amount" ref={topup} required={true} />
+                    { error &&
                       <div style={{textAlign: "center", color: "red"}}>
                         {error.message}
                       </div>
-                      : null }
+                    }
                       <button className="btn-com btn-m-t" onClick={handleUpdate}>
                         {loading? <p>Loading</p> : <p>Add Balance</p>}
                       </button>
                       <button type="button" onClick={handleSignOut} className="btn-com"><TiArrowBackOutline /> Log Out</button>
                     </div>
-                    {/*}<div className="app"><Link to="/partnerApp"><AiFillPlusCircle/></Link></div>*/}
                     <div className="history-list"><Link to="/history"><IoMdListBox/></Link></div>
                   </div>
               </div>
@@ -75,4 +64,4 @@ const mapStateToProps = store =>{
   }
 }
 
-export default connect(mapStateToProps, { signOut, updateBalance })(Dashboard);
+export default connect(mapStateToProps, { updateBalance, signOut })(Dashboard);
